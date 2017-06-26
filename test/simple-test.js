@@ -6,10 +6,13 @@ const { output } = require('../webpack.config.js');
 // Start test
 const scriptPath = resolve(output.path, output.filename);
 exec(`node ${scriptPath} < ./input`, (error, stdout, stderr) => {
-  if (stdout === readFileSync('./answer', 'utf8')) {
-    console.log('Correct Answer');
+  if (stderr) {
+    console.log('Runtime Error. (See ./stderr)');
+    writeFileSync('./stderr', stderr);
+  } else if (stdout !== readFileSync('./answer', 'utf8')) {
+    console.log('Wrong Answer. (See ./stdout)');
+    writeFileSync('./stdout', stdout);
   } else {
-    console.log('Wrong Answer');
+    console.log('Accepted!');
   }
-  writeFileSync('./output', stdout);
 });
