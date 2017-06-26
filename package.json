@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack -w",
+    "build": "webpack -p",
     "test": "node test/simple-test.js"
   },
   "author": "",
